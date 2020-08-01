@@ -8,7 +8,7 @@ const PW = '';
 
 async function test() {
   await kpbapi.login(ID, PW);
-  var free_board = await kpbapi.getPostList(kpbapi.getPortalBoardURL('자유게시판'));
+  var free_board = await kpbapi.getPostList(kpbapi.getPortalBoardURL('일반공지사항'));
   console.log('PostList:', free_board.map(e => `${e.post_seq} ${e.title}`).join('\n'));
   var last_post = free_board.slice(-1).pop();
   console.log('LastPostInfo:', last_post);

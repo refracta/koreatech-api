@@ -52,7 +52,7 @@ function toCommentUrl(url) {
   return (url.replace('dm=r', '') + '&dm=cr').replace('&&dm=', '&dm=');
 }
 
-function getPostList(url) {
+function getPostList(url, filter_notice = true) {
   return fetch(url)
     .then(res => res.text())
     .then(body => {
@@ -61,6 +61,7 @@ function getPostList(url) {
         post_seq: parseInt($(e).find('.bc-s-post_seq').text()),
         title: $(e).find('.bc-s-title span:nth-child(1)').text().trim(),
         attach_file: $(e).find('.bc-s-title img').length > 0,
+        notice: $(e).find('img[src$="notice.gif"]').length > 0,
         // url_raw: $(e).data('url'),
         url: PORTAL_URL + $(e).data('url'),
         comment_sum: $(e).find('.bc-s-title div:nth-child(3)').length > 0 ? parseInt($(e).find('.bc-s-title div:nth-child(3)').text().split('').slice(1).reverse().slice(1).reverse().join('')) : 0,
@@ -69,7 +70,7 @@ function getPostList(url) {
         etc1: $(e).find('.bc-s-etc1').text().trim(),
         cre_user_name: $(e).find('.bc-s-cre_user_name').text().trim(),
         visit_cnt: parseInt($(e).find('.bc-s-visit_cnt').text()),
-      })).sort((a, b) => a.post_seq < b.post_seq ? -1 : a.post_seq > b.post_seq ? 1 : 0);
+      })).filter(e => filter_notice ? !e.notice : true).sort((a, b) => a.post_seq < b.post_seq ? -1 : a.post_seq > b.post_seq ? 1 : 0);
     });
 }
 
@@ -131,8 +132,8 @@ function getPostContent(url) {
       $('.bc-s-tbledit *').toArray().forEach(replaceURL);
 
       var attach_list = $('.bc-s-tbledit #tx_attach_list dt > a:nth-child(1)').toArray().map(e => ({
-        name: $(e).text().replace(/\(.+?\)$/, ''),
-        size: $(e).text().match(/\(.+?\)$/) ? $(e).text().match(/\(.+?\)$/)[0].split('').slice(1).reverse().slice(1).reverse().join('') : void 0,
+        name: $(e).text().split('(').reverse().slice(1).reverse().join('('),
+        size: $(e).text().match(/\(.+?\)/g) ? $(e).text().match(/\(.+?\)/g).pop().split('').slice(1).reverse().slice(1).reverse().join('') : void 0,
         url: $(e).attr('href')
       }));
       var all_file_down_url = url + '&a=afd';
@@ -140,12 +141,17 @@ function getPostContent(url) {
       $('#tx_attach_all_file_down').remove();
 
       var comment_sum = parseInt($('#bi_cmmt_list .bc-s-sum').text());
+      if (isNaN(comment_sum)) {
+        comment_sum = 0;
+      }
       var comment_url = toCommentUrl(url);
       $('#cmmtListSize').remove();
       $('.bc-s-btnmemomod').remove();
       $('.bc-s-btndelmemo').remove();
-      $('#bi_cmmt_list .bc-s-sum').parent().html($('#bi_cmmt_list .bc-s-sum').parent().html().replace('&#xAC74;/', '10&#xAC74;/'));
 
+      if ($('#bi_cmmt_list .bc-s-sum').length > 0) {
+        $('#bi_cmmt_list .bc-s-sum').parent().html($('#bi_cmmt_list .bc-s-sum').parent().html().replace('&#xAC74;/', '10&#xAC74;/'));
+      }
       $('input').remove();
       var content = $('.bc-s-post-ctnt-area').html() + $('.bc-s-tbledit').html() + $('#bi_cmmt_list').html();
       var data = {
