@@ -1,0 +1,28 @@
+{
+  "name": "koreatech_portal_board",
+  "version": "1.0.0",
+  "description": "koreatech portal board api",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refracta/koreatech-api.git"
+  },
+  "author": "refracta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/refracta/koreatech-api/issues"
+  },
+  "homepage": "https://github.com/refracta/koreatech-api#readme",
+  "dependencies": {
+    "cheerio": "1.0.0-rc.3",
+    "fetch-cookie": "0.10.1",
+    "node-fetch": "2.6.0"
+  },
+  "devDependencies": {}
+}
