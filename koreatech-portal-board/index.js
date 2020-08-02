@@ -2,7 +2,7 @@ const fetch = require('fetch-cookie')(require('node-fetch'));
 const cheerio = require('cheerio');
 const PORTAL_URL = 'https://portal.koreatech.ac.kr';
 const BOARD_URL = 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=';
-const BOARD_ID = {
+const BOARD_ID_MAP = {
   '코로나19관련공지': 142,
   '일반공지사항': 14,
   '학사공지사항': 16,
@@ -10,14 +10,16 @@ const BOARD_ID = {
   '시설보수신청': 47,
   '학생생활': 21,
   '자유게시판': 22,
-  '민간투자사업': 143,
   '부정행위(시험)신고': 147,
   '학사행정서식': 23,
   '교육자료실': 24,
   '일반자료실': 25,
   '코리아텍 위키피디아': 102
 };
-const QUERY_SIZE = 60;
+
+const BOARD_ID_MAP_REVERSE = Object.keys(BOARD_ID_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = e, a), {});
+const QUERY_SIZE = 20;
+const GET_QUERY_SIZE = _ => !isNaN(parseInt(module.exports.QUERY_SIZE)) ? module.exports.QUERY_SIZE : QUERY_SIZE;
 
 async function login(user_id, user_pwd) {
   user_id = encodeURIComponent(user_id);
@@ -52,19 +54,24 @@ function toCommentUrl(url) {
   return (url.replace('dm=r', '') + '&dm=cr').replace('&&dm=', '&dm=');
 }
 
-function getPostList(url, filter_notice = true) {
+function parseIntWithDefault(value, defaultValue = 0){
+  return !isNaN(parseInt(value)) ? parseInt(value) : defaultValue;
+}
+
+function getPostList(url, filter_notice = false) {
   return fetch(url)
     .then(res => res.text())
     .then(body => {
       const $ = cheerio.load(body);
       return $('[data-name="post_list"]').toArray().map(e => ({
         post_seq: parseInt($(e).find('.bc-s-post_seq').text()),
-        title: $(e).find('.bc-s-title span:nth-child(1)').text().trim(),
+        title: $(e).find('.bc-s-title').text().trim(),
         attach_file: $(e).find('.bc-s-title img').length > 0,
         notice: $(e).find('img[src$="notice.gif"]').length > 0,
         // url_raw: $(e).data('url'),
+        // TODO bc-s-file_cnt 부정행위(시험)신고 게시판
         url: PORTAL_URL + $(e).data('url'),
-        comment_sum: $(e).find('.bc-s-title div:nth-child(3)').length > 0 ? parseInt($(e).find('.bc-s-title div:nth-child(3)').text().split('').slice(1).reverse().slice(1).reverse().join('')) : 0,
+        comment_sum: parseIntWithDefault($(e).find('.bc-s-title div:nth-child(3)').length > 0 ? parseInt($(e).find('.bc-s-title div:nth-child(3)').text().split('').slice(1).reverse().slice(1).reverse().join('')) : 0),
         comment_url: toCommentUrl(PORTAL_URL + $(e).data('url')),
         cre_dt: $(e).find('.bc-s-cre_dt').text().trim(),
         etc1: $(e).find('.bc-s-etc1').text().trim(),
@@ -79,7 +86,7 @@ function parseCommentURL(url) {
     .then(res => res.text())
     .then(body => {
       const $ = cheerio.load(body);
-      var comment_sum = parseInt($('.bc-s-sum').text());
+      var comment_sum = parseIntWithDefault($('.bc-s-sum').text());
       var comment_list = $('#bi_cont_middle dl').toArray().map(e => ({
         cre_user_name: $(e).find('.bc-b-subsection span:nth-child(1)').text().trim(),
         cre_dt: $(e).find('.bc-b-subsection span.bc-s-memodate').text().trim(),
@@ -94,14 +101,14 @@ function parseCommentURL(url) {
 
 
 async function getCommentList(url) {
-  var comment_data = await parseCommentURL(url + `&cs=${QUERY_SIZE}&cn=1`);
+  var comment_data = await parseCommentURL(url + `&cs=${GET_QUERY_SIZE()}&cn=1`);
   if (comment_data.comment_sum <= 10) {
     return comment_data;
   } else {
     var leftCn = Math.ceil((comment_data.comment_sum - QUERY_SIZE) / QUERY_SIZE);
     var comment_data_queue = [comment_data];
     for (var i = 0 + 2; i < leftCn + 2; i++) {
-      comment_data_queue.push(parseCommentURL(url + `&cs=${QUERY_SIZE}&cn=${i}`));
+      comment_data_queue.push(parseCommentURL(url + `&cs=${GET_QUERY_SIZE()}&cn=${i}`));
     }
     comment_data_queue = await Promise.all(comment_data_queue);
     return {
@@ -111,7 +118,7 @@ async function getCommentList(url) {
   }
 }
 
-function getPostContent(url) {
+function getPostInfo(url) {
   return fetch(url)
     .then(res => res.text())
     .then(body => {
@@ -140,10 +147,8 @@ function getPostContent(url) {
       $('#tx_attach_all_file_down').parent().append($(`<a href="${all_file_down_url} style="background: #555555; border-color: #111; color: #fff;">모두저장</>`));
       $('#tx_attach_all_file_down').remove();
 
-      var comment_sum = parseInt($('#bi_cmmt_list .bc-s-sum').text());
-      if (isNaN(comment_sum)) {
-        comment_sum = 0;
-      }
+      var comment_sum = parseIntWithDefault($('#bi_cmmt_list .bc-s-sum').text());
+
       var comment_url = toCommentUrl(url);
       $('#cmmtListSize').remove();
       $('.bc-s-btnmemomod').remove();
@@ -153,7 +158,14 @@ function getPostContent(url) {
         $('#bi_cmmt_list .bc-s-sum').parent().html($('#bi_cmmt_list .bc-s-sum').parent().html().replace('&#xAC74;/', '10&#xAC74;/'));
       }
       $('input').remove();
-      var content = $('.bc-s-post-ctnt-area').html() + $('.bc-s-tbledit').html() + $('#bi_cmmt_list').html();
+
+      var post_content = $('.bc-s-post-ctnt-area').html();
+      var attach_content = $('.bc-s-tbledit').html();
+      var comment_content = $('#bi_cmmt_list').html();
+
+      var content = (post_content ? post_content : '') + (attach_content ? attach_content : '') + (comment_content ? comment_content : '');
+      content = content.trim();
+
       var data = {
         title: $('.kut-board-title-table span:nth-of-type(1)').text().trim(),
         cre_user_name: $('.kut-board-title-table td:nth-of-type(1)').text().trim(),
@@ -173,18 +185,24 @@ function getPostContent(url) {
 }
 
 
-function getPortalBoardURL(board_name) {
-  return BOARD_URL + BOARD_ID[board_name];
+function getPortalBoardURL(board_identifier) {
+  if (isNaN(parseInt(board_identifier))) {
+    return BOARD_URL + BOARD_ID_MAP[board_identifier] + `&ls=${GET_QUERY_SIZE()}`;
+  } else {
+    return BOARD_URL + board_identifier + `&ls=${GET_QUERY_SIZE()}`;
+  }
 }
 
 module.exports = {
   PORTAL_URL,
   BOARD_URL,
-  BOARD_ID,
+  BOARD_ID_MAP,
+  BOARD_ID_MAP_REVERSE,
+  QUERY_SIZE,
   fetch,
   login,
   getPostList,
-  getPostContent,
+  getPostInfo,
   getCommentList,
   getPortalBoardURL
 }

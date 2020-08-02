@@ -21,7 +21,10 @@
   "homepage": "https://github.com/refracta/koreatech-api#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "feed": "^4.2.1",
     "fetch-cookie": "^0.10.1",
+    "lowdb": "^1.0.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {}
