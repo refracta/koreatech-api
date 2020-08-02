@@ -8,7 +8,7 @@ cd koreatech-portal-board
 npm install
 ```
 
-## 사용 방법
+## 사용 방법 [(examples/kpbapi-query-test)](https://github.com/refracta/koreatech-api/tree/master/koreatech-portal-board/examples/kpbapi-query-test)
 ```
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 // WARNING: https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs
