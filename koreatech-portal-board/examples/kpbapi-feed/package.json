@@ -1,5 +1,5 @@
 {
-  "name": "kpb-feed",
+  "name": "kpbapi-feed",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
