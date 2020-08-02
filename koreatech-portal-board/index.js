@@ -134,7 +134,7 @@ function getPostInfo(url) {
         }
       };
 
-      $('script').remove();
+
       $('.bc-s-post-ctnt-area *').toArray().forEach(replaceURL);
       $('.bc-s-tbledit *').toArray().forEach(replaceURL);
 
@@ -157,7 +157,6 @@ function getPostInfo(url) {
       if ($('#bi_cmmt_list .bc-s-sum').length > 0) {
         $('#bi_cmmt_list .bc-s-sum').parent().html($('#bi_cmmt_list .bc-s-sum').parent().html().replace('&#xAC74;/', '10&#xAC74;/'));
       }
-      $('input').remove();
 
       var post_content = $('.bc-s-post-ctnt-area').html();
       var attach_content = $('.bc-s-tbledit').html();
@@ -165,6 +164,10 @@ function getPostInfo(url) {
 
       var content = (post_content ? post_content : '') + (attach_content ? attach_content : '') + (comment_content ? comment_content : '');
       content = content.trim();
+      var $$ = cheerio.load(content);
+      $$('input').remove();
+      $$('script').remove();
+      content = $$.html();
 
       var data = {
         title: $('.kut-board-title-table span:nth-of-type(1)').text().trim(),
