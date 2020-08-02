@@ -82,7 +82,7 @@ async function update() {
   lastUpdated = new Date();
 }
 
-function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), numberOfPost = 20) {
+function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), disableContent = false, numberOfPost = 20) {
   var feed = new Feed({
     title: '한국기술교육대학교 아우누리 포털',
     description: `한국기술교육대학교 아우누리 포털의 게시글의 피드입니다. 포함 게시판: ${boardIdList.map(id => `${kpbapi.BOARD_ID_MAP_REVERSE[id]} 게시판`).join(', ')}`,
@@ -110,17 +110,20 @@ function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), numberOf
 
   posts.forEach(p => {
     var title = `[${kpbapi.BOARD_ID_MAP_REVERSE[p.board_identifier]}] ${p.info.title}`;
-    feed.addItem({
+    var feedItem = {
       title,
       id: p.url,
       link: p.url,
       description: title,
-      content: p.info.content,
       author: [{
         name: p.cre_user_name
       }],
       date: new Date(p.info.cre_dt),
-    });
+    };
+    if(deleteContent){
+      feedItem.content = p.info.content;
+    }
+    feed.addItem(feedItem);
   });
 
   return feed;
@@ -141,7 +144,8 @@ async function init() {
     if (boardList.length == 0) {
       boardList = void 0;
     }
-    var feed = generateFeed(boardList);
+    var disableContent = query.disableContent == 'true' ? true : false;
+    var feed = generateFeed(boardList, disableContent);
 
     var feedType = query.feedType;
     switch (feedType) {
