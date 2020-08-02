@@ -1,39 +1,9 @@
-# koreatech-portal-board
-[아우누리 포털](https://portal.koreatech.ac.kr) 커뮤니티 게시판의 게시글 목록, 게시글 정보, 댓글 정보를 가져오는 라이브러리입니다.
+# koreatech-query-test
+API 사용의 기본적인 예제입니다.
 
-## 설치 방법
-```  
-git clone https://github.com/refracta/koreatech-api
-cd koreatech-portal-board
-npm install
+## 사용 방법
 ```
-
-## 사용 방법 [(examples/kpbapi-query-test)](https://github.com/refracta/koreatech-api/tree/master/koreatech-portal-board/examples/kpbapi-query-test)
-```
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-// WARNING: https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs
-
-var kpbapi = require('./koreatech-portal-board');
-kpbapi.QUERY_SIZE = 60;
-
-const argv = process.argv.slice(2);
-const ID = argv[0];
-const PW = argv[1];
-
-async function query_test() {
-  await kpbapi.login(ID, PW);
-  var free_board = await kpbapi.getPostList(kpbapi.getPortalBoardURL('자유게시판'));
-  console.log('PostList:', free_board.map(e => `${e.post_seq} ${e.title}`).join('\n'));
-  var last_post = free_board.slice(-1).pop();
-  console.log('LastPost:', last_post);
-  var post_info = await kpbapi.getPostInfo(last_post.url);
-  post_info.content = post_info.content.substring(0, 100);
-  console.log('PostInfo:', post_info);
-  var comment_list = await kpbapi.getCommentList(last_post.comment_url);
-  console.log('CommentList:', comment_list);
-}
-
-query_test();
+npm start ID PW
 ```
 ```
 PostList: 5 야인시대 5화
@@ -89,7 +59,6 @@ CommentList: {
   ]
 }
 ```
-[더 많은 예제 보기](https://github.com/refracta/koreatech-api/tree/master/koreatech-portal-board/examples)
 
 ## 기타
 Pull Request 환영합니다. 개선 사항, 버그는 Issue에 등록해주세요.
