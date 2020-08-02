@@ -4,10 +4,10 @@
 ## koreatech-portal-board
 [아우누리 포털](https://portal.koreatech.ac.kr) 커뮤니티 게시판의 게시글 목록, 게시글 정보, 댓글 정보를 가져오는 라이브러리입니다.
 
-## koreatech-every-time
+## koreatech-everytime
 [한국기술교육대학교 Everytime](http://koreatech.everytime.kr)의 정보를 가져오는 라이브러리입니다. ( 작업 예정 )
 
-## cse-portal-board
+## koreatech-cse-board
 [컴퓨터공학부 게시판](https://cse.koreatech.ac.kr)의 정보를 가져오는 라이브러리입니다. ( 작업 예정 )
 
 ## 기타
