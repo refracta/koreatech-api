@@ -144,7 +144,7 @@ async function init() {
     if (boardList.length == 0) {
       boardList = void 0;
     }
-    var deleteContent = query.disableContent == 'true' ? true : false;
+    var deleteContent = query.deleteContent == 'true' ? true : false;
     var feed = generateFeed(boardList, deleteContent);
 
     var feedType = query.feedType;
