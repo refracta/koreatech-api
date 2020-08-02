@@ -36,7 +36,7 @@ var feed = new Feed({
         // link: 'https://'
     }
 });
-// [https://github.com/jpmonette/feed#example](https://github.com/jpmonette/feed#example)
+// https://github.com/jpmonette/feed#example
 ```
 
 ## 사용 방법
