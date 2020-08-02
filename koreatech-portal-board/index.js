@@ -65,7 +65,7 @@ function getPostList(url, filter_notice = false) {
       const $ = cheerio.load(body);
       return $('[data-name="post_list"]').toArray().map(e => ({
         post_seq: parseInt($(e).find('.bc-s-post_seq').text()),
-        title: $(e).find('.bc-s-title').text().trim(),
+        title: $(e).find('.bc-s-title span').length > 0 ? $(e).find('.bc-s-title span').text().trim() : $(e).find('.bc-s-title').text().trim(),
         attach_file: $(e).find('.bc-s-title img').length > 0,
         notice: $(e).find('img[src$="notice.gif"]').length > 0,
         // url_raw: $(e).data('url'),
