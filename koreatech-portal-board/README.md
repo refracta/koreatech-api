@@ -46,9 +46,9 @@ LastPost: {
   title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
   attach_file: true,
   notice: false,
-  url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=51879',
+  url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=?',
   comment_sum: 2,
-  comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=51879&dm=cr',
+  comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=?&dm=cr',
   cre_dt: '1972-11-21',
   etc0: '',
   etc1: '',
@@ -64,14 +64,14 @@ PostInfo: {
   content: '<p>&#xC548;&#xB155;&#xD558;&#xC138;&#xC694;. &#xC81C;28&#xB300; &#xCD1D;&#xD559;&#xC0DD;&#xD68C; &#x',
   attach_list: [
     {
-      name: '파일 1번.jpg',
+      name: '국밥.jpg',
       size: '2000 KB',
       url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&p=?&a=fd&fs=1'
     }, ... { ... }
   ],
   all_file_down_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=?&a=afd',
   comment_sum: 2,
-  comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=51879&dm=cr'
+  comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=?&dm=cr'
 }
 CommentList: {
   comment_sum: 2,
