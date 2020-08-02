@@ -82,7 +82,7 @@ async function update() {
   lastUpdated = new Date();
 }
 
-function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), disableContent = false, numberOfPost = 20) {
+function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), deleteContent = false, numberOfPost = 20) {
   var feed = new Feed({
     title: '한국기술교육대학교 아우누리 포털',
     description: `한국기술교육대학교 아우누리 포털의 게시글의 피드입니다. 포함 게시판: ${boardIdList.map(id => `${kpbapi.BOARD_ID_MAP_REVERSE[id]} 게시판`).join(', ')}`,
@@ -144,8 +144,8 @@ async function init() {
     if (boardList.length == 0) {
       boardList = void 0;
     }
-    var disableContent = query.disableContent == 'true' ? true : false;
-    var feed = generateFeed(boardList, disableContent);
+    var deleteContent = query.disableContent == 'true' ? true : false;
+    var feed = generateFeed(boardList, deleteContent);
 
     var feedType = query.feedType;
     switch (feedType) {
