@@ -59,7 +59,7 @@ LastPost: {
 PostInfo: {
   title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
   cre_user_name: '상하이조',
-  cre_dt: '1972-11-21 13:00:00',
+  cre_dt: '1972-11-21 19:12:01',
   visit_cnt: 1972,
   content: '<p>&#xC548;&#xB155;&#xD558;&#xC138;&#xC694;. &#xC81C;28&#xB300; &#xCD1D;&#xD559;&#xC0DD;&#xD68C; &#x',
   attach_list: [
