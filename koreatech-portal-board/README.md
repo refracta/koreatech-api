@@ -36,40 +36,40 @@ async function query_test() {
 query_test();
 ```
 ```
-PostList: 51835 ○학생지원팀○ 아이스 팩 재사용 활성화를 위한 표준디자인 공모
+PostList: 5 야인시대 5화
 ...
-51879 ■총학생회■ 신입생들을 위한 2학기 이수과목 안내
+64 야인시대 64화
 ...
-51895 ■총학생회■ '여름방학인데 놀면 뭐하니?!' 당첨자 발표 안내
+65 야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.
 LastPost: {
   post_seq: 51879,
-  title: '■총학생회■ 신입생들을 위한 2학기 이수과목 안내',
+  title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
   attach_file: true,
   notice: false,
   url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=51879',
   comment_sum: 2,
   comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=51879&dm=cr',
-  cre_dt: '2020-07-29',
+  cre_dt: '1972-11-21',
   etc0: '',
   etc1: '',
   etc2: '',
-  cre_user_name: '박성진',
+  cre_user_name: '상하이조',
   visit_cnt: 193
 }
 PostInfo: {
-  title: '■총학생회■ 신입생들을 위한 2학기 이수과목 안내',
-  cre_user_name: '박성진',
-  cre_dt: '2020-07-29 12:24:12',
+  title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
+  cre_user_name: '상하이조',
+  cre_dt: '1972-11-21 13:00:00',
   visit_cnt: 194,
   content: '<p>&#xC548;&#xB155;&#xD558;&#xC138;&#xC694;. &#xC81C;28&#xB300; &#xCD1D;&#xD559;&#xC0DD;&#xD68C; &#x',
   attach_list: [
     {
-      name: '신입생들을 위한 2학기 이수과목 안내 표지.jpg',
-      size: '313 KB',
-      url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&p=51879&a=fd&fs=1'
+      name: '파일 1번.jpg',
+      size: '2000 KB',
+      url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&p=?&a=fd&fs=1'
     }, ... { ... }
   ],
-  all_file_down_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=51879&a=afd',
+  all_file_down_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=?&a=afd',
   comment_sum: 2,
   comment_url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&&p=51879&dm=cr'
 }
@@ -77,14 +77,14 @@ CommentList: {
   comment_sum: 2,
   comment_list: [
     {
-      cre_user_name: '유재철',
-      cre_dt: '2020-07-31',
-      comment: '메카트로닉스공학부 필수과목 중 미분방정식을 미적분학으로 수정해주셔야 할 것 같습니다.'
+      cre_user_name: '김두한',
+      cre_dt: '1972-11-21',
+      comment: '공산당 할 거야, 안 할 거야!'
     },
     {
-      cre_user_name: '박성진',
-      cre_dt: '2020-07-31',
-      comment: '안녕하세요 유재철 학우님. 이번 2학기 개설강좌를 확인한 결과, 이번 메카트로닉스공학부 1학년 대상으로 미분방정식 과목이 개설되었음을 확인할 수 있었고, 이에 따라 메카트로닉스공학부 학생회에서는 필수과목으로 미분방정식을 안내하 였습니다. 관심 가져주셔서 정말 감사드립니다.'
+      cre_user_name: '심영',
+      cre_dt: '1972-11-21',
+      comment: '안 하겠소! 다시는 안 하겠소!'
     }
   ]
 }
