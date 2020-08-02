@@ -1,7 +1,7 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 // WARNING: https://stackoverflow.com/questions/31673587/error-unable-to-verify-the-first-certificate-in-nodejs
 
-var kpbapi = require('../');
+var kpbapi = require('../../');
 kpbapi.QUERY_SIZE = 60;
 
 const argv = process.argv.slice(2);
