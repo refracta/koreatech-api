@@ -120,7 +120,7 @@ function generateFeed(boardIdList = Object.values(kpbapi.BOARD_ID_MAP), deleteCo
       }],
       date: new Date(p.info.cre_dt),
     };
-    if(deleteContent){
+    if(!deleteContent){
       feedItem.content = p.info.content;
     }
     feed.addItem(feedItem);
