@@ -74,6 +74,7 @@ function getPostList(url, filter_notice = false) {
         comment_sum: parseIntWithDefault($(e).find('.bc-s-title div:nth-child(3)').length > 0 ? parseInt($(e).find('.bc-s-title div:nth-child(3)').text().split('').slice(1).reverse().slice(1).reverse().join('')) : 0),
         comment_url: toCommentUrl(PORTAL_URL + $(e).data('url')),
         cre_dt: $(e).find('.bc-s-cre_dt').text().trim(),
+        prefix: $(e).find('.bc-s-prefix').text().trim(),
         etc0: $(e).find('.bc-s-etc1').text().trim(),
         etc1: $(e).find('.bc-s-etc1').text().trim(),
         etc2: $(e).find('.bc-s-etc1').text().trim(),
