@@ -36,7 +36,9 @@ const BOARD_PRIVILEGE_MAP = {
 }
 
 
+
 const BOARD_ID_MAP_REVERSE = Object.keys(BOARD_ID_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = e, a), {});
+const BOARD_PRIVILEGE_MAP_REVERSE = Object.keys(BOARD_PRIVILEGE_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = BOARD_PRIVILEGE_MAP[e], a), {});
 const QUERY_SIZE = 20;
 const GET_QUERY_SIZE = _ => !isNaN(parseInt(module.exports.QUERY_SIZE)) ? module.exports.QUERY_SIZE : QUERY_SIZE;
 
@@ -73,7 +75,7 @@ function toCommentUrl(url) {
   return (url.replace('dm=r', '') + '&dm=cr').replace('&&dm=', '&dm=');
 }
 
-function parseIntWithDefault(value, defaultValue = 0){
+function parseIntWithDefault(value, defaultValue = 0) {
   return !isNaN(parseInt(value)) ? parseInt(value) : defaultValue;
 }
 
@@ -222,6 +224,7 @@ module.exports = {
   BOARD_ID_MAP,
   BOARD_ID_MAP_REVERSE,
   BOARD_PRIVILEGE_MAP,
+  BOARD_PRIVILEGE_MAP_REVERSE,
   QUERY_SIZE,
   fetch,
   login,
