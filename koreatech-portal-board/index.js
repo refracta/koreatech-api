@@ -35,12 +35,18 @@ const BOARD_PRIVILEGE_MAP = {
   '코리아텍 위키피디아': 0
 }
 
-
-
 const BOARD_ID_MAP_REVERSE = Object.keys(BOARD_ID_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = e, a), {});
 const BOARD_PRIVILEGE_MAP_REVERSE = Object.keys(BOARD_PRIVILEGE_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = BOARD_PRIVILEGE_MAP[e], a), {});
 const QUERY_SIZE = 20;
 const GET_QUERY_SIZE = _ => !isNaN(parseInt(module.exports.QUERY_SIZE)) ? module.exports.QUERY_SIZE : QUERY_SIZE;
+
+function newUTC9Date(data){
+  if(typeof data === 'string'){
+    return new Date(`${data} UTC+09`);
+  }else{
+    return new Date(data);
+  }
+}
 
 async function login(user_id, user_pwd) {
   user_id = encodeURIComponent(user_id);
@@ -94,7 +100,7 @@ function getPostList(url, filter_notice = false) {
         url: PORTAL_URL + $(e).data('url'),
         comment_sum: parseIntWithDefault($(e).find('.bc-s-title div:nth-child(3)').length > 0 ? parseInt($(e).find('.bc-s-title div:nth-child(3)').text().split('').slice(1).reverse().slice(1).reverse().join('')) : 0),
         comment_url: toCommentUrl(PORTAL_URL + $(e).data('url')),
-        cre_dt: $(e).find('.bc-s-cre_dt').text().trim(),
+        cre_dt: newUTC9Date($(e).find('.bc-s-cre_dt').text().trim()),
         prefix: $(e).find('.bc-s-prefix').text().trim(),
         etc0: $(e).find('.bc-s-etc0').text().trim(),
         etc1: $(e).find('.bc-s-etc1').text().trim(),
@@ -113,7 +119,7 @@ function parseCommentURL(url) {
       var comment_sum = parseIntWithDefault($('.bc-s-sum').text());
       var comment_list = $('#bi_cont_middle dl').toArray().map(e => ({
         cre_user_name: $(e).find('.bc-b-subsection span:nth-child(1)').text().trim(),
-        cre_dt: $(e).find('.bc-b-subsection span.bc-s-memodate').text().trim(),
+        cre_dt: newUTC9Date($(e).find('.bc-b-subsection span.bc-s-memodate').text().trim()),
         comment: $(e).find('.bc-s-memocont pre').text().trim()
       }));
       return {
