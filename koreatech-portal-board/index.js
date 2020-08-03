@@ -17,6 +17,25 @@ const BOARD_ID_MAP = {
   '코리아텍 위키피디아': 102
 };
 
+// 0: 로그인 없이 모든 글을 확인 가능
+// 1: 로그인 없이 글 목록을 확인 가능, 글 내용은 확인 불가
+// 2: 로그인 없이 글 목록과 글 내용 모두 확인 불가
+const BOARD_PRIVILEGE_MAP = {
+  '코로나19관련공지': 0,
+  '일반공지사항': 0,
+  '학사공지사항': 0,
+  '민원실': 2,
+  '시설보수신청': 1,
+  '학생생활': 0,
+  '자유게시판': 1,
+  '부정행위(시험)신고': 2, // 글이 없는 관계로 권한 파악 불가
+  '학사행정서식': 0,
+  '교육자료실': 1,
+  '일반자료실': 1,
+  '코리아텍 위키피디아': 0
+}
+
+
 const BOARD_ID_MAP_REVERSE = Object.keys(BOARD_ID_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = e, a), {});
 const QUERY_SIZE = 20;
 const GET_QUERY_SIZE = _ => !isNaN(parseInt(module.exports.QUERY_SIZE)) ? module.exports.QUERY_SIZE : QUERY_SIZE;
@@ -202,6 +221,7 @@ module.exports = {
   BOARD_URL,
   BOARD_ID_MAP,
   BOARD_ID_MAP_REVERSE,
+  BOARD_PRIVILEGE_MAP,
   QUERY_SIZE,
   fetch,
   login,
