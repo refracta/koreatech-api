@@ -36,14 +36,14 @@ async function query_test() {
 query_test();
 ```
 ```
-PostList: 5 야인시대 5화
+PostList: 5 야인시대 5회
 ...
-64 야인시대 64화
+64 야인시대 64회
 ...
-65 야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.
+65 야인시대 65회는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.
 LastPost: {
   post_seq: 65,
-  title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
+  title: '야인시대 65회는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
   attach_file: true,
   notice: false,
   url: 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=22&ls=60&ln=1&dm=r&p=65',
@@ -57,7 +57,7 @@ LastPost: {
   visit_cnt: 1972
 }
 PostInfo: {
-  title: '야인시대 65화는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
+  title: '야인시대 65회는 정말 일품이란 말이야. 대사도 뻑뻑하고 연기혼도 꽤 많이 들었어.',
   cre_user_name: '상하이조',
   cre_dt: '1972-11-21 20:12:11',
   visit_cnt: 1972,
