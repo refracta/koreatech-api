@@ -38,7 +38,9 @@ const BOARD_PRIVILEGE_MAP = {
 const BOARD_ID_MAP_REVERSE = Object.keys(BOARD_ID_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = e, a), {});
 const BOARD_PRIVILEGE_MAP_REVERSE = Object.keys(BOARD_PRIVILEGE_MAP).reduce((a, e) => (a[BOARD_ID_MAP[e]] = BOARD_PRIVILEGE_MAP[e], a), {});
 const QUERY_SIZE = 20;
-const GET_QUERY_SIZE = _ => !isNaN(parseInt(module.exports.QUERY_SIZE)) ? module.exports.QUERY_SIZE : QUERY_SIZE;
+const GET_QUERY_SIZE = _ => parseIntWithDefault(module.exports.QUERY_SIZE, QUERY_SIZE);
+
+
 
 function newUTC9Date(data){
   if(typeof data === 'string'){
