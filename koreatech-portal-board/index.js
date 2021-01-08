@@ -1,4 +1,9 @@
-const fetch = require('fetch-cookie')(require('node-fetch'));
+// const fetch = require('fetch-cookie')(require('node-fetch'));
+const nodeFetch = require('node-fetch')
+const tough = require('tough-cookie');
+const cookie = new tough.CookieJar();
+const fetch = require('fetch-cookie')(nodeFetch, cookie);
+
 const cheerio = require('cheerio');
 const PORTAL_URL = 'https://portal.koreatech.ac.kr';
 const BOARD_URL = 'https://portal.koreatech.ac.kr/ctt/bb/bulletin?b=';
@@ -72,6 +77,7 @@ async function login(user_id, user_pwd) {
     'method': 'GET',
     redirect: 'manual'
   });
+  cookie.setCookieSync("kut_login_type=id; Domain=koreatech.ac.kr; Path=/; hostOnly=false;", "https://koreatech.ac.kr");
   await fetch(`${PORTAL_URL}/exsignon/sso/sso_assert.jsp`, {
     'body': 'certUserId=&certLoginId=&certEmpNo=&certType=&secondCert=&langKo=&langEn=',
     'method': 'POST',
